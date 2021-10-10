@@ -1,0 +1,8 @@
+*.class
+*.log
+/target
+*.csv
+./metastore_db/
+/spark-warehouse/
+/metastore_db/
+/.idea/
