@@ -25,6 +25,8 @@ object SparkSessionTest extends Constants {
 
     val df = readTable(spark)
     val df2 = renameCols(df)
+
+    df2.show()
     writeTable(df2)
 
 
