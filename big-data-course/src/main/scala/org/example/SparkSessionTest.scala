@@ -4,17 +4,14 @@ import org.apache.spark.sql.functions.{col, lit}
 import org.apache.spark.sql.{DataFrame, SparkSession}
 
 import java.io.File
+import java.nio.file.Paths
+import scala.io.Source
 
 object SparkSessionTest extends Constants {
+  case class Poem(title: String, contents: String)
+  def main(args: Array[String]): Unit = {
 
-  def main(args:Array[String]): Unit ={
-
-   val spark = SparkSession.builder()
-      .master("local[5]")
-      .appName("SparkByExample")
-      .enableHiveSupport()
-      .getOrCreate();
-
+    val spark = LivyOnDockerUtils.getSparkSession("LivyOnDockerApp")
     println("First SparkContext:")
     println("APP Name :"+spark.sparkContext.appName);
     println("Deploy Mode :"+spark.sparkContext.deployMode);
@@ -32,6 +29,25 @@ object SparkSessionTest extends Constants {
 
     Thread.sleep(1000000) //For 1000 seconds or more
 
+  }
+
+  def getData(path: String): List[Poem] = {
+
+    new File(path).listFiles.toList.map(f => {
+
+      val basename = Paths
+        .get(f.toString)
+        .getFileName.toString
+        .split("\\.").head
+
+      val source = Source.fromFile(f.toString)
+      val contents = source.mkString
+
+      source.close()
+
+      Poem(basename, contents)
+
+    })
   }
 
   def readTable(spark: SparkSession): DataFrame = {

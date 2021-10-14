@@ -4,7 +4,7 @@ trait Constants {
   val TablePath = "data.google"
   val Bbdd: String =
     """
-      |CREATE DATABASE IF NOT EXISTS data;
+      |CREATE DATABASE IF NOT EXISTS data
       |""".stripMargin
 
   val TableSchema: String =
@@ -16,7 +16,7 @@ trait Constants {
       |    close string,
       |    ddj_lose string,
       |    volue string)
-      |    STORED AS PARQUET;
+      |    STORED AS PARQUET
       |""".stripMargin
 
   val Cols = Seq(
