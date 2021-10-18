@@ -7,11 +7,12 @@ import java.io.File
 import java.nio.file.Paths
 import scala.io.Source
 
-object SparkSessionTest extends Constants {
+object SparkReadCsv extends Constants {
   case class Poem(title: String, contents: String)
   def main(args: Array[String]): Unit = {
 
-    val spark = LivyOnDockerUtils.getSparkSession("LivyOnDockerApp")
+    val spark = SparkSessionBuilder.getSparkSession("SparkReadCsv")
+
     println("First SparkContext:")
     println("APP Name :"+spark.sparkContext.appName);
     println("Deploy Mode :"+spark.sparkContext.deployMode);
